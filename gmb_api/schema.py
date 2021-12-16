@@ -152,5 +152,5 @@ class Location(BaseModel):
 
 
 class Locations(BaseModel):
-    locations: typing.List[Location]
+    locations: typing.Optional[typing.List[Location]] = Field(default_factory=list)
     next_page_token: typing.Optional[str] = Field(alias='nextPageToken')

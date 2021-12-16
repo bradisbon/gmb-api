@@ -9,14 +9,13 @@ def get_accounts(session:Session) -> typing.List[schema.Account]:
     r.raise_for_status()
 
     return [schema.Account(**a) for a in r.json()['accounts']]
-
+ 
 
 def get_locations(account_name:str,session:Session) -> typing.List[schema.Location]:
     page_r = session.get(f'https://mybusiness.googleapis.com/v4/{account_name}/locations')
     page_j = page_r.json()
     page_r.raise_for_status()
-
-    page = schema.Locations(**page_r.json())
+    page = schema.Locations(**page_j)
     locations = page.locations
     while page.next_page_token:
         page_r = session.get(
