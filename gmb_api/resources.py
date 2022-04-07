@@ -23,7 +23,8 @@ def get_locations(account_name:str,session:Session,fields:str='name') -> typing.
     while page.next_page_token:
         page_r = session.get(
             f'https://mybusinessbusinessinformation.googleapis.com/v1/{account_name}/locations',
-            params={'pageToken':page.next_page_token})
+            params={'pageToken':page.next_page_token,
+                    'readMask':fields})
         page_r.raise_for_status()
         page = schema.Locations(**page_r.json())
         locations.extend(page.locations)
