@@ -138,6 +138,7 @@ class Profile(BaseModel):
 
 class Location(BaseModel):
     name: str
+    title: typing.Optional[str]
     store_code: typing.Optional[str] = Field(alias='storeCode')
     website_uri: str = Field('webiteUri')
     regular_hours: typing.Optional[BusinessHours] = Field(alias='regularHours')
