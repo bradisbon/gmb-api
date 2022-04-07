@@ -1,6 +1,7 @@
 import typing
 
 from pydantic import BaseModel, Field
+from six import integer_types
 
 
 class Account(BaseModel):
@@ -35,15 +36,22 @@ class AdditionalCategory(BaseModel):
     more_hours_types: typing.List[HoursType] = Field(alias='moreHoursTypes')
     
 
-class Period(BaseModel):
+class TimeOfDay(BaseModel):
+    hours: int
+    minutes: int
+    seconds: int
+    nanos: int
+
+
+class TimePeriod(BaseModel):
     open_day: str = Field(alias='openDay')
-    open_time: str = Field(alias='openTime')
+    open_time: TimeOfDay = Field(alias='openTime')
     close_day: str = Field(alias='closeDay')
-    close_time: str = Field(alias='closeTime')
+    close_time: TimeOfDay = Field(alias='closeTime')
 
 
-class RegularHours(BaseModel):
-    periods: typing.List[Period]
+class BusinessHours(BaseModel):
+    periods: typing.List[TimePeriod]
 
 
 class PlaceInfo(BaseModel):
@@ -131,12 +139,8 @@ class Profile(BaseModel):
 class Location(BaseModel):
     name: str
     store_code: typing.Optional[str] = Field(alias='storeCode')
-    location_name: str = Field(alias='locationName')
-    primary_phone: typing.Optional[str] = Field(alias='primaryPhone')
-    primary_category: PrimaryCategory = Field(alias='primaryCategory')
-    additional_categories: typing.Optional[typing.List[AdditionalCategory]] = Field(alias='additionalCategories')
-    website_url: str = Field('webiteUrl')
-    regular_hours: typing.Optional[RegularHours] = Field(alias='regularHours')
+    website_uri: str = Field('webiteUri')
+    regular_hours: typing.Optional[BusinessHours] = Field(alias='regularHours')
     service_area: typing.Optional[ServiceArea] = Field(alias='serviceArea')
     location_key: LocationKey = Field(alias='locationKey')
     labels: typing.Optional[typing.List[str]]
@@ -152,5 +156,5 @@ class Location(BaseModel):
 
 
 class Locations(BaseModel):
-    locations: typing.Optional[typing.List[Location]] = Field(default_factory=list)
+    locations: typing.List[Location] = Field(default_factory=list)
     next_page_token: typing.Optional[str] = Field(alias='nextPageToken')

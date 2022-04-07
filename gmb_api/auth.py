@@ -35,7 +35,7 @@ def refresh_token(refresh_token_path):
                         data=json.dumps(data))
     r.raise_for_status()
     return r.json()['access_token']
-
+    
 class Session(requests.Session):
     def __init__(self) -> None:
         super().__init__()
