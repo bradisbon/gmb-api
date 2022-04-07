@@ -137,20 +137,20 @@ class Profile(BaseModel):
 
 
 class Location(BaseModel):
-    name: str
+    name: typing.Optional[str]
     title: typing.Optional[str]
     store_code: typing.Optional[str] = Field(alias='storeCode')
-    website_uri: str = Field('webiteUri')
+    website_uri: typing.Optional[str] = Field('webiteUri')
     regular_hours: typing.Optional[BusinessHours] = Field(alias='regularHours')
     service_area: typing.Optional[ServiceArea] = Field(alias='serviceArea')
-    location_key: LocationKey = Field(alias='locationKey')
+    location_key: typing.Optional[LocationKey] = Field(alias='locationKey')
     labels: typing.Optional[typing.List[str]]
     lat_lng: typing.Optional[LatLng] = Field(alias='latlng')
-    open_info: OpenInfo = Field(alias='openInfo')
-    location_state: LocationState = Field(alias='locationState')
+    open_info: typing.Optional[OpenInfo] = Field(alias='openInfo')
+    location_state: typing.Optional[LocationState] = Field(alias='locationState')
     attributes: typing.Optional[typing.List[Attribute]]
-    metadata: Metadata
-    language_code: str = Field(alias='languageCode')
+    metadata: typing.Optional[Metadata]
+    language_code: typing.Optional[str] = Field(alias='languageCode')
     price_lists: typing.Optional[typing.List[PriceList]] = Field(alias='priceLists')
     address: typing.Optional[Address]
     profile: typing.Optional[Profile]
